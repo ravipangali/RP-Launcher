@@ -11,7 +11,8 @@ class AppListController extends GetxController {
 
   loadApps() async {
     List<Application> tempApps =
-        await DeviceApps.getInstalledApplications(includeAppIcons: true, onlyAppsWithLaunchIntent: true, includeSystemApps: true);
+        await DeviceApps.getInstalledApplications(includeAppIcons: true);
+    print(tempApps);
     apps.value = tempApps;
     loading.value = false;
   }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ravi_launcher/src/constants/color_constant.dart';
 import 'package:ravi_launcher/src/controllers/app_list_controller.dart';
 import 'package:ravi_launcher/src/widgets/app_item_widget.dart';
+import 'package:ravi_launcher/src/widgets/preloader_widget.dart';
 
 class AppListScreen extends StatelessWidget {
   AppListScreen({super.key});
@@ -22,18 +23,18 @@ class AppListScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: InteractiveViewer(
                 child: Obx(
-              () => Scatter(
-                  delegate: ArchimedeanSpiralScatterDelegate(
-                      a: 0, b: 18, ratio: 3, rotation: 0),
-                  children: appListController.loading.value
-                      ? []
-                      : appListController.apps.map<Widget>((app) {
-                          return AppItemWidget(
-                            appName: app.appName,
-                            icon: app.icon,
-                            packageName: app.packageName,
-                          );
-                        }).toList()),
+              () => appListController.loading.value
+                  ? const PreloaderWidget()
+                  : Scatter(
+                      delegate: ArchimedeanSpiralScatterDelegate(
+                          a: 0, b: 18, ratio: 3, rotation: 0),
+                      children: appListController.apps.map<Widget>((app) {
+                        return AppItemWidget(
+                          appName: app.appName,
+                          icon: app.icon,
+                          packageName: app.packageName,
+                        );
+                      }).toList()),
             )),
           ),
         ),
