@@ -15,11 +15,7 @@ class AppListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        title: const Text('Apps'),
-        backgroundColor: primaryColor,
-        foregroundColor: primaryTextColor,
-      ),
+      appBar: AppBar(title: const Text('Apps'), backgroundColor: primaryColor, foregroundColor: primaryTextColor,),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),

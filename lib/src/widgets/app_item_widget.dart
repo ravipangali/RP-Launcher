@@ -12,15 +12,22 @@ class AppItemWidget extends StatelessWidget {
 
   final dynamic packageName;
   final dynamic icon;
-  final dynamic  appName;
+  final dynamic appName;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          DeviceApps.openApp(packageName),
+      onLongPress: () => showMenu(
+          context: context,
+          color: primaryTextColor,
+          
+          items: [
+            PopupMenuItem(child: Text('Uninstall', style: TextStyle(color: primaryColor),))
+          ],
+          position: const RelativeRect.fromLTRB(0, 0, 0, 0)),
+      onTap: () => DeviceApps.openApp(packageName),
       child: Container(
-        margin: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: 40,
           height: 90,
           child: Column(
@@ -33,8 +40,7 @@ class AppItemWidget extends StatelessWidget {
               Text(appName,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: primaryTextColor))
+                  style: TextStyle(color: primaryTextColor))
             ],
           )),
     );
