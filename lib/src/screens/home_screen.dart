@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         child: Stack(
           children: [
             // Viewing Button
-            Container(
+             Container(
               alignment: Alignment.center,
               child: Text('RP', style: TextStyle(color: primaryTextColor, fontSize: 50, fontWeight: FontWeight.bold)),
             ),
