@@ -19,21 +19,23 @@ class AppListScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           alignment: Alignment.center,
           child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Obx(
-                () => Scatter(
-                    delegate: ArchimedeanSpiralScatterDelegate(
-                        a: 0, b: 18, ratio: 2, rotation: 0.2),
-                    children: appListController.loading.value
-                        ? []
-                        : appListController.apps.map<Widget>((app) {
-                            return AppItemWidget(
-                              appName: app.appName,
-                              icon: app.icon,
-                              packageName: app.packageName,
-                            );
-                          }).toList()),
-              )),
+            scrollDirection: Axis.horizontal,
+            child: InteractiveViewer(
+                child: Obx(
+              () => Scatter(
+                  delegate: ArchimedeanSpiralScatterDelegate(
+                      a: 0, b: 18, ratio: 3, rotation: 0),
+                  children: appListController.loading.value
+                      ? []
+                      : appListController.apps.map<Widget>((app) {
+                          return AppItemWidget(
+                            appName: app.appName,
+                            icon: app.icon,
+                            packageName: app.packageName,
+                          );
+                        }).toList()),
+            )),
+          ),
         ),
       ),
     );
