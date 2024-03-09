@@ -1,11 +1,13 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:ravi_launcher/src/constants/color_constant.dart';
 import 'package:ravi_launcher/src/controllers/app_list_controller.dart';
+import 'package:ravi_launcher/src/controllers/speech_controller.dart';
 
 class AppItemWidget extends StatelessWidget {
-  const AppItemWidget(
+  AppItemWidget(
       {super.key,
       required this.packageName,
       required this.icon,
@@ -16,6 +18,7 @@ class AppItemWidget extends StatelessWidget {
   final dynamic icon;
   final dynamic appName;
   final AppListController controller;
+  final SpeechController speechController = Get.put(SpeechController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,8 @@ class AppItemWidget extends StatelessWidget {
                     Navigator.pop(context);
                   });
                   controller.loadApps();
+                  speechController.speak(
+                      "App is uninstalled. Please click on refresh button.");
                 },
                 child: Container(
                   padding:
@@ -54,7 +59,11 @@ class AppItemWidget extends StatelessWidget {
           direction: PopoverDirection.bottom),
 
       // Open App
-      onTap: () => DeviceApps.openApp(packageName),
+      onTap: () {
+        DeviceApps.openApp(packageName);
+        speechController
+            .speak("Opening $appName");
+      },
 
       // UI
       child: Container(
