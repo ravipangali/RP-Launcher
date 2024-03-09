@@ -8,6 +8,6 @@ class SpeechController extends GetxController {
     await flutterTts.value.setLanguage("en-US");
     await flutterTts.value.setSpeechRate(0.55);
     await flutterTts.value.setPitch(1.0);
-    flutterTts.value.speak(text);
+    await flutterTts.value.speak(text);
   }
 }

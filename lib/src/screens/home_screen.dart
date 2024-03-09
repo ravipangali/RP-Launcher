@@ -17,33 +17,48 @@ class HomeScreen extends StatelessWidget {
 
   final speechController = Get.put(SpeechController());
 
+  Future<void> speak() async {
+    await speechController.speak(StringConstant.greetingIntro);
+  }
+
   @override
   Widget build(BuildContext context) {
-    speechController.speak(StringConstant.homeGreeting);
+    speak();
     return Scaffold(
       backgroundColor: primaryColor,
       body: SafeArea(
           child: Center(
         child: Stack(
           children: [
-            // Greeting
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  TypewriterAnimatedText(StringConstant.homeGreeting,
-                      textStyle: TextStyle(
-                        
-                        color: primaryTextColor,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                      ), 
-                      textAlign: TextAlign.center,
-                      cursor: '',
-                      speed: const Duration(milliseconds: 50)
-                      )
+            // FullBody
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Greeting
+                  Container(
+                    width: 300,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(StringConstant.greetingIntro,
+                            textStyle: const TextStyle(
+                              fontFamily: 'Morethathuman',
+                              color: Colors.green,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              // shadows: [BoxShadow(color: Colors.yellow.shade600, blurRadius: 10, spreadRadius: 2, offset: const Offset(0, 0))]
+                            ),
+                            cursor: '',
+                            speed: const Duration(milliseconds: 50)),
+                      ],
+                      isRepeatingAnimation: false,
+                    ),
+                  ),
                 ],
-                isRepeatingAnimation: false,
               ),
             ),
 
