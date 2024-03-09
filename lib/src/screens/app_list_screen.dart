@@ -3,6 +3,7 @@ import 'package:flutter_scatter/flutter_scatter.dart';
 import 'package:get/get.dart';
 import 'package:ravi_launcher/src/constants/color_constant.dart';
 import 'package:ravi_launcher/src/controllers/app_list_controller.dart';
+import 'package:ravi_launcher/src/controllers/speech_controller.dart';
 import 'package:ravi_launcher/src/widgets/app_item_widget.dart';
 import 'package:ravi_launcher/src/widgets/preloader_widget.dart';
 
@@ -10,9 +11,12 @@ class AppListScreen extends StatelessWidget {
   AppListScreen({super.key});
 
   final appListController = Get.put(AppListController());
+  final speechController = Get.put(SpeechController());
+  
 
   @override
   Widget build(BuildContext context) {
+    speechController.speak("I'm showing you app list.");
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(

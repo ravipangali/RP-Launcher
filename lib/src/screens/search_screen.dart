@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ravi_launcher/src/constants/color_constant.dart';
 import 'package:ravi_launcher/src/controllers/mine_search_controller.dart';
+import 'package:ravi_launcher/src/controllers/speech_controller.dart';
 import 'package:ravi_launcher/src/widgets/mine_search_widget.dart';
 import 'package:ravi_launcher/src/widgets/preloader_widget.dart';
 
@@ -10,9 +11,11 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
   final searchController = Get.put(MineSearchController());
+  final speechController = Get.put(SpeechController());
 
   @override
   Widget build(BuildContext context) {
+    speechController.speak('Search your lovely app');
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
