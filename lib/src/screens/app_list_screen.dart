@@ -15,7 +15,24 @@ class AppListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(title: const Text('Apps'), backgroundColor: primaryColor, foregroundColor: primaryTextColor,),
+      appBar: AppBar(
+        title: const Text('Apps'),
+        backgroundColor: primaryColor,
+        foregroundColor: primaryTextColor,
+        actions: [
+          Container(
+            padding: const EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () => appListController.loadApps(),
+              child: Icon(
+                Icons.refresh,
+                color: primaryTextColor,
+                size: 28,
+              ),
+            ),
+          )
+        ],
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -34,6 +51,7 @@ class AppListScreen extends StatelessWidget {
                               appName: app.appName,
                               icon: app.icon,
                               packageName: app.packageName,
+                              controller: appListController,
                             );
                           }).toList()),
                     )),

@@ -1,31 +1,62 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:popover/popover.dart';
 import 'package:ravi_launcher/src/constants/color_constant.dart';
+import 'package:ravi_launcher/src/controllers/app_list_controller.dart';
 
 class AppItemWidget extends StatelessWidget {
-  const AppItemWidget({
-    super.key,
-    required this.packageName,
-    required this.icon,
-    required this.appName,
-  });
+  const AppItemWidget(
+      {super.key,
+      required this.packageName,
+      required this.icon,
+      required this.appName,
+      required this.controller});
 
   final dynamic packageName;
   final dynamic icon;
   final dynamic appName;
+  final AppListController controller;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onLongPress: () => showMenu(
+      // Uninstall App
+      onLongPress: () => showPopover(
           context: context,
-          color: primaryTextColor,
-          
-          items: [
-            PopupMenuItem(child: Text('Uninstall', style: TextStyle(color: primaryColor),))
+          shadow: [
+            const BoxShadow(
+                color: Colors.white,
+                offset: Offset(0, 0),
+                blurRadius: 20,
+                spreadRadius: -5)
           ],
-          position: const RelativeRect.fromLTRB(0, 0, 0, 0)),
+          bodyBuilder: (context) => InkWell(
+                onTap: () async {
+                  await DeviceApps.uninstallApp(packageName).whenComplete(() {
+                    controller.loadApps();
+                    Navigator.pop(context);
+                  });
+                  controller.loadApps();
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  child: Text(
+                    'Uninstall',
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+          direction: PopoverDirection.bottom),
+
+      // Open App
       onTap: () => DeviceApps.openApp(packageName),
+
+      // UI
       child: Container(
           margin: const EdgeInsets.all(10),
           width: 40,
